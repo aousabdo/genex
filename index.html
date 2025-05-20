@@ -9,8 +9,17 @@
 <body>
     <div class="container">
         <h1>Random Excuse Generator</h1>
+        <label for="category">Choose a category:</label>
+        <select id="category">
+            <option value="all">All</option>
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="absurd">Absurd</option>
+            <option value="tech">Tech</option>
+        </select>
         <p id="excuse">Press the button to get an excuse.</p>
         <button id="generate">Generate Excuse</button>
+        <button id="copy" title="Copy to clipboard">Copy</button>
     </div>
     <script src="script.js"></script>
 </body>
