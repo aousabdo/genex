@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,12 +10,24 @@ body {
     margin: 0;
 }
 
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 .container {
     text-align: center;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.85);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
 }
 
 button {
@@ -29,4 +43,12 @@ button {
 
 button:hover {
     background-color: #ff826a;
+}
+
+select {
+    margin-top: 1rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
 }
