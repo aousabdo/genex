@@ -21,27 +21,46 @@ const excuses = {
   ]
 };
 
-function allExcuses() {
-  return Object.values(excuses).flat();
-}
+const allExcuses = () => Object.values(excuses).flat();
 
 function getRandomExcuse(category) {
-  const list = category && category !== 'all' ? excuses[category] || [] : allExcuses();
+  const list = category && category !== 'all' ? excuses[category] : allExcuses();
   const index = Math.floor(Math.random() * list.length);
   return list[index];
 }
 
-document.getElementById('generate').addEventListener('click', () => {
-  const category = document.getElementById('category').value;
-  const excuse = getRandomExcuse(category);
-  document.getElementById('excuse').innerText = excuse;
-});
+function App() {
+  const [category, setCategory] = React.useState('all');
+  const [excuse, setExcuse] = React.useState('');
+  const [copied, setCopied] = React.useState(false);
 
-document.getElementById('copy').addEventListener('click', () => {
-  const excuse = document.getElementById('excuse').innerText;
-  navigator.clipboard.writeText(excuse).then(() => {
-    const btn = document.getElementById('copy');
-    btn.innerText = 'Copied!';
-    setTimeout(() => (btn.innerText = 'Copy'), 1000);
-  });
-});
+  const generate = () => {
+    setExcuse(getRandomExcuse(category));
+  };
+
+  const copy = () => {
+    navigator.clipboard.writeText(excuse).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1000);
+    });
+  };
+
+  return (
+    <div className="container">
+      <h1>Random Excuse Generator</h1>
+      <label htmlFor="category">Choose a category:</label>
+      <select id="category" value={category} onChange={e => setCategory(e.target.value)}>
+        <option value="all">All</option>
+        <option value="work">Work</option>
+        <option value="school">School</option>
+        <option value="absurd">Absurd</option>
+        <option value="tech">Tech</option>
+      </select>
+      <p id="excuse">{excuse || 'Press the button to get an excuse.'}</p>
+      <button onClick={generate}>Generate Excuse</button>
+      <button onClick={copy} title="Copy to clipboard">{copied ? 'Copied!' : 'Copy'}</button>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
